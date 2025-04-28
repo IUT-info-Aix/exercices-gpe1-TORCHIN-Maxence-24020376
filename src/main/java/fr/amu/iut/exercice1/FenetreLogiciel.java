@@ -44,8 +44,7 @@ public class FenetreLogiciel extends Application {
 
         // === Panneau gauche ===
         VBox leftButtons = new VBox(10);
-        leftButtons.setPadding(new Insets(10));
-        leftButtons.setAlignment(Pos.CENTER_LEFT);
+        leftButtons.setAlignment(Pos.CENTER);
         leftButtons.getChildren().addAll(
                 new Label("Boutons :"),
                 new Button("Bouton 1"),
@@ -88,7 +87,6 @@ public class FenetreLogiciel extends Application {
         separatorVertical.setOrientation(Orientation.VERTICAL);
 
         HBox centerContent = new HBox(10);
-        centerContent.setPadding(new Insets(10));
         centerContent.getChildren().addAll(leftButtons, separatorVertical, form);
         HBox.setHgrow(form, Priority.ALWAYS);
 
