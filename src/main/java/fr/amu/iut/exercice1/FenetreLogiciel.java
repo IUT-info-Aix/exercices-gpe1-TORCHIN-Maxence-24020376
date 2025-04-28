@@ -2,6 +2,7 @@ package fr.amu.iut.exercice1;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -82,16 +83,32 @@ public class FenetreLogiciel extends Application {
         BorderPane.setMargin(labelBas, new Insets(5));
 
         // === MISE EN PAGE ===
+        // == Partie centrale ==
+        Separator separatorVertical = new Separator();
+        separatorVertical.setOrientation(Orientation.VERTICAL);
 
+        HBox centerContent = new HBox(10);
+        centerContent.setPadding(new Insets(10));
+        centerContent.getChildren().addAll(leftButtons, separatorVertical, form);
+        HBox.setHgrow(form, Priority.ALWAYS);
+
+        // == Partie basse ==
+        Separator separatorHorizontal = new Separator();
+
+        VBox bottomBox = new VBox(5);
+        bottomBox.setAlignment(Pos.CENTER);
+        bottomBox.getChildren().addAll(separatorHorizontal, labelBas);
+
+        // == BorderPane ==
         BorderPane root = new BorderPane();
         root.setTop(menuBar);
-        root.setLeft(leftButtons);
-        root.setCenter(form);
-        root.setBottom(labelBas);
+        root.setCenter(centerContent);
+        root.setBottom(bottomBox);
+
 
         primaryStage.setTitle("Premier exemple manipulant les conteneurs");
 
-        Scene scene = new Scene(root, 600, 400); // largeur et hauteur
+        Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
 
         primaryStage.show();
