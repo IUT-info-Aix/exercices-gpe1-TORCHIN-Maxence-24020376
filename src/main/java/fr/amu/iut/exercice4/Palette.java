@@ -49,19 +49,19 @@ public class Palette extends Application {
         Vert.setOnAction(e -> {
             nbVert++;
             panneau.setStyle("-fx-background-color: green;");
-            label.setText("Nombre de clics sur Vert : " + nbVert);
+            label.setText("Vert choisi " + nbVert + " fois");
         });
 
         Rouge.setOnAction(e -> {
             nbRouge++;
             panneau.setStyle("-fx-background-color: red;");
-            label.setText("Nombre de clics sur Rouge : " + nbRouge);
+            label.setText("Rouge choisi " + nbRouge + " fois");
         });
 
         Bleu.setOnAction(e -> {
             nbBleu++;
             panneau.setStyle("-fx-background-color: blue;");
-            label.setText("Nombre de clics sur Bleu : " + nbBleu);
+            label.setText("Bleu choisi " + nbBleu + " fois");
         });
 
 
