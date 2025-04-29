@@ -2,11 +2,9 @@ package fr.amu.iut.exercice2;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -17,13 +15,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-
-import java.util.Objects;
 import java.util.Random;
-
-import javax.swing.*;
-
-import static java.lang.Long.SIZE;
 
 
 public class TicTacToe extends Application {
