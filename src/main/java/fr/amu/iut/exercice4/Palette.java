@@ -35,9 +35,9 @@ public class Palette extends Application {
 
         // == Fabrication des boutons ==
 
-        Button Vert = new Button("Vert");
-        Button Rouge = new Button("Rouge");
-        Button Bleu = new Button("Bleu");
+        vert = new Button("Vert");
+        rouge = new Button("Rouge");
+        bleu = new Button("Bleu");
 
         // == Gestion des évènements ==
 
@@ -46,19 +46,19 @@ public class Palette extends Application {
         panneau = new Pane();
 
 
-        Vert.setOnAction(e -> {
+        vert.setOnAction(e -> {
             nbVert++;
             panneau.setStyle("-fx-background-color: green;");
             label.setText("Vert choisi " + nbVert + " fois");
         });
 
-        Rouge.setOnAction(e -> {
+        rouge.setOnAction(e -> {
             nbRouge++;
             panneau.setStyle("-fx-background-color: red;");
             label.setText("Rouge choisi " + nbRouge + " fois");
         });
 
-        Bleu.setOnAction(e -> {
+        bleu.setOnAction(e -> {
             nbBleu++;
             panneau.setStyle("-fx-background-color: blue;");
             label.setText("Bleu choisi " + nbBleu + " fois");
@@ -71,7 +71,7 @@ public class Palette extends Application {
         bas.setAlignment(Pos.CENTER);
         bas.setPadding(new Insets(10));
         bas.setSpacing(10);
-        bas.getChildren().addAll(Vert, Rouge, Bleu);
+        bas.getChildren().addAll(vert, rouge, bleu);
 
         root = new BorderPane();
         root.setTop(label);
