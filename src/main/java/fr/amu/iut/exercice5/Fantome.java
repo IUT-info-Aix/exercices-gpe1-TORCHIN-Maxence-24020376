@@ -39,6 +39,7 @@ public class Fantome extends Personnage {
 
     @Override
     public void deplacerAGauche() {
+        super.deplacerAGauche();
         retineGauche.setCenterX(oeilGauche.getCenterX() - 1);
         retineGauche.setCenterY(oeilGauche.getCenterY());
         retineDroite.setCenterX(oeilDroit.getCenterX() - 1);
@@ -72,6 +73,5 @@ public class Fantome extends Personnage {
         retineDroite.setCenterX(oeilDroit.getCenterX());
         retineDroite.setCenterY(oeilDroit.getCenterY() - 1);
     }
-
 
 }
