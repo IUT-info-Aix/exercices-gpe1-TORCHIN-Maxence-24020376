@@ -5,17 +5,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" hgap="100" styleClass="root"  vgap="20" fx:controller="fr.amu.iut.exercice8.LoginControl"
-                             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<GridPane alignment="CENTER" hgap="100" styleClass="root" stylesheets="/exercice8/Login.css" vgap="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="fr.amu.iut.exercice8.LoginControl">
+   <HBox alignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <children>
+         <Button onAction="#okClicked" mnemonicParsing="false" text="Ok">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin></Button>
+         <Button onAction="#cancelClicked" mnemonicParsing="false" text="Cancel">
+            <HBox.margin>
+               <Insets left="5.0" />
+            </HBox.margin></Button>
+      </children>
+   </HBox>
     <Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
     <Label text="User Id:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-<!--   à compléter par un TextField et un Label -->
+    <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
     <PasswordField fx:id="pwd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-<!--  à compléter pour les boutons -->
 
    <columnConstraints>
       <ColumnConstraints maxWidth="103.0" minWidth="63.0" prefWidth="83.0" />
