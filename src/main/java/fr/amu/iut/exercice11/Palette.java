@@ -1,4 +1,4 @@
-package fr.amu.iut.exercice1;
+package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -57,10 +57,32 @@ public class Palette extends Application {
         rouge = new Button("Rouge");
         bleu = new Button("Bleu");
 
-        /* VOTRE CODE ICI */
+        vert.setOnAction(e -> {
+            nbVert++;
+            panneau.setStyle("-fx-background-color: green;");
+            texteDuHaut.setText("Vert choisi " + nbVert + " fois");
+            texteDuBas.setText("Le vert est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: green;");
+        });
+
+        rouge.setOnAction(e -> {
+            nbRouge++;
+            panneau.setStyle("-fx-background-color: red;");
+            texteDuHaut.setText("Rouge choisi " + nbRouge + " fois");
+            texteDuBas.setText("Le rouge est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: red;");
+        });
+
+        bleu.setOnAction(e -> {
+            nbBleu++;
+            panneau.setStyle("-fx-background-color: blue;");
+            texteDuHaut.setText("Bleu choisi " + nbBleu + " fois");
+            texteDuBas.setText("Le bleu est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: blue;");
+        });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
-
+;
         root.setCenter(panneau);
         root.setTop(texteDuHaut);
         root.setBottom(bas);
