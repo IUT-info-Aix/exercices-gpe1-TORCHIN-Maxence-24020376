@@ -1,6 +1,13 @@
 package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,89 +15,98 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 @SuppressWarnings("Duplicates")
 public class Palette extends Application {
 
-    private int nbVert = 0;
-    private int nbRouge = 0;
-    private int nbBleu = 0;
+    private IntegerProperty nbFois = new SimpleIntegerProperty(0);
+    private StringProperty message = new SimpleStringProperty("");
+    private StringProperty couleurPanneau = new SimpleStringProperty("#000000");
+    private BooleanProperty pasEncoreDeClic = new SimpleBooleanProperty(true);
 
-    private Label texteDuHaut;
-
-    private Button vert;
-    private Button rouge;
-    private Button bleu;
-
-    private BorderPane root;
-    private Pane panneau;
-    private HBox boutons;
-
-    private Label texteDuBas;
-
+    private Label texteDuHaut = new Label();
+    private Label texteDuBas = new Label();
+    private Pane panneau = new Pane();
 
     @Override
     public void start(Stage primaryStage) {
-        root = new BorderPane();
-
-        texteDuHaut = new Label();
-        texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
-
-        panneau = new Pane();
-        panneau.setPrefSize(400, 200);
-
-        VBox bas = new VBox();
-        boutons = new HBox(10);
-        boutons.setAlignment(Pos.CENTER);
-        boutons.setPadding(new Insets(10, 5, 10, 5));
-        texteDuBas = new Label();
-        bas.setAlignment(Pos.CENTER_RIGHT);
-        bas.getChildren().addAll(boutons, texteDuBas);
-
-        vert = new Button("Vert");
-        rouge = new Button("Rouge");
-        bleu = new Button("Bleu");
+        Button vert = new Button("Vert");
+        Button rouge = new Button("Rouge");
+        Button bleu = new Button("Bleu");
 
         vert.setOnAction(e -> {
-            nbVert++;
-            panneau.setStyle("-fx-background-color: green;");
-            texteDuHaut.setText("Vert choisi " + nbVert + " fois");
-            texteDuBas.setText("Le vert est une jolie couleur !");
-            texteDuBas.setStyle("-fx-text-fill: green;");
+            nbFois.set(nbFois.get() + 1);
+            message.set("Vert");
+            couleurPanneau.set("green");
         });
 
         rouge.setOnAction(e -> {
-            nbRouge++;
-            panneau.setStyle("-fx-background-color: red;");
-            texteDuHaut.setText("Rouge choisi " + nbRouge + " fois");
-            texteDuBas.setText("Le rouge est une jolie couleur !");
-            texteDuBas.setStyle("-fx-text-fill: red;");
+            nbFois.set(nbFois.get() + 1);
+            message.set("Rouge");
+            couleurPanneau.set("red");
         });
 
         bleu.setOnAction(e -> {
-            nbBleu++;
-            panneau.setStyle("-fx-background-color: blue;");
-            texteDuHaut.setText("Bleu choisi " + nbBleu + " fois");
-            texteDuBas.setText("Le bleu est une jolie couleur !");
-            texteDuBas.setStyle("-fx-text-fill: blue;");
+            nbFois.set(nbFois.get() + 1);
+            message.set("Bleu");
+            couleurPanneau.set("steelblue");
         });
 
-        boutons.getChildren().addAll(vert, rouge, bleu);
-;
-        root.setCenter(panneau);
+        // Mise en page
+        HBox boutons = new HBox(10, vert, rouge, bleu);
+        boutons.setAlignment(Pos.CENTER);
+
+        texteDuBas.setPadding(new Insets(10));
+        texteDuHaut.setPadding(new Insets(10));
+
+        BorderPane root = new BorderPane();
         root.setTop(texteDuHaut);
-        root.setBottom(bas);
+        root.setBottom(new VBox(boutons, texteDuBas));
+        root.setCenter(panneau);
 
-        Scene scene = new Scene(root);
+        createBindings();
 
+        Scene scene = new Scene(root, 400, 300);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Exercice 11");
         primaryStage.show();
     }
+
+    private void createBindings() {
+        // pasEncoreDeClic devient false dès qu’on clique
+        pasEncoreDeClic.bind(nbFois.isEqualTo(0));
+
+        // texte du haut : si jamais cliqué → “Rouge choisi X fois” sinon → “Cliquez sur un bouton”
+        texteDuHaut.textProperty().bind(
+                Bindings.when(pasEncoreDeClic)
+                        .then("Cliquez sur un bouton")
+                        .otherwise(
+                                Bindings.concat(message, " choisi ", nbFois.asString(), " fois")
+                        )
+        );
+
+        // style du panneau centré (changer la couleur de fond)
+        panneau.styleProperty().bind(
+                Bindings.concat("-fx-background-color: ", couleurPanneau)
+        );
+
+        // texte du bas (message coloré)
+        texteDuBas.textProperty().bind(
+                Bindings.when(pasEncoreDeClic)
+                        .then("")
+                        .otherwise(
+                                Bindings.concat("Le ", message, " est une jolie couleur !")
+                        )
+        );
+
+        texteDuBas.styleProperty().bind(
+                Bindings.concat("-fx-text-fill: ", couleurPanneau)
+        );
+    }
+
 }
 
